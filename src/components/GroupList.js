@@ -33,6 +33,28 @@ class GroupList extends Component {
                     let subjects = res.subject_set;
                     let teachers = res.teachers;
                     let files = res.files;
+                    let additional_files = res.additional_files;
+
+
+                    let fill_str = '';
+
+                    additional_files.map(item => {
+                        console.log(item);
+                        fill_str += `<li class="collection-item">
+                                <div>${item.title} (${item.pub_date})<a href="${window.DOMAIN_NAME}${item.file}" download class="secondary-content"><i
+                                    class="material-icons">arrow_downward</i></a></div>
+                                </li>`
+                    });
+                    window.$("#additionals-files").after(fill_str);
+
+
+                    /*
+                    <li className="collection-item">
+                                <div>Alvin<a href="#!" download className="secondary-content"><i
+                                    className="material-icons">send</i></a></div>
+                            </li>
+                    */
+
                     this.setState({subjects, teachers, files})
                 }).catch(err => {
                 localStorage.removeItem('token');
@@ -43,8 +65,9 @@ class GroupList extends Component {
 
     showMarks = async (e) => {
         try {
-            window.$('.modal').modal();
-            window.$('.modal').modal('open');
+            window.$('.marks-modal').modal();
+            window.$('.marks-modal').modal('open');
+
         } catch (e) {
         }
         let subject_id = e.target.attributes.getNamedItem('data-subject-id').value;
@@ -70,7 +93,7 @@ class GroupList extends Component {
                             </div>
                             <div className="collapsible-body">
 
-                                <a onClick={this.showMarks} data-subject-id={item.id}
+                                <a data-target="modal1" onClick={this.showMarks} data-subject-id={item.id}
                                    className="modal-trigger col s12 waves-effect waves-light btn">Мої оцінки</a>
 
                                 <br/><br/>

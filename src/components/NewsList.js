@@ -33,9 +33,9 @@ class NewsList extends Component {
 
     render() {
         return (
-            <div className="col s9">
+            <div className="col s6">
                 {this.state.news ? this.state.news.map(item =>
-                    <div key={item.id} className="col s8">
+                    <div key={item.id} className="col s12">
                         <div className="col s1 pr-0 circle">
                         </div>
                         <div className="col s11">

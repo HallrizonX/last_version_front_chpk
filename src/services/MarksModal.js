@@ -9,7 +9,7 @@ class MarksModal extends Component {
     render() {
         console.log(this.props.marks);
         return (
-            <div id="modal1" className="modal">
+            <div id="modal1" className="modal marks-modal">
                 <div className="modal-content">
                     <h4 className='center-align'>Щоденник</h4>
                     <hr/>

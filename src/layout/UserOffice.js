@@ -16,6 +16,11 @@ class UserOffice extends Component {
                 <div className="row">
                     <GroupList/>
                     <NewsList/>
+                    <div className='col s3'>
+                        <ul className="collection with-header">
+                            <li className="collection-header" id='additionals-files'><h4>Додаткові матеріали</h4></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         );
