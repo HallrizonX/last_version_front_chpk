@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Header.css';
 import axios from "axios";
+import FloatingActionButton from './FloatingActionButton';
 
 class Header extends Component {
     state = {
@@ -19,6 +20,8 @@ class Header extends Component {
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         window.$('.tooltipped').tooltip();
+        window.$('.fixed-action-btn').floatingActionButton();
+        window.$('.modal').modal();
     }
 
     logout = () => {
@@ -31,6 +34,8 @@ class Header extends Component {
 
             return (
                 <nav>
+                    <FloatingActionButton/>
+
                     <div className="nav-wrapper light-blue darken-4">
                         <a className='brand-logo'>
                             <i style={{fontSize: '60px'}} className="material-icons">account_circle</i>
