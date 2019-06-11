@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
+
 import renderHTML from 'react-render-html';
 
 class NewsList extends Component {
@@ -19,9 +21,7 @@ class NewsList extends Component {
             axios.get(`${window.API_URL}/news/`, {headers: {Authorization: localStorage.getItem('token')}})
                 .then(res => {
                     let news = res.data.data.result;
-
                     this.setState({news});
-                    console.log(news);
                 }).catch(err => {
                 localStorage.removeItem('token');
                 location.reload();
@@ -39,10 +39,10 @@ class NewsList extends Component {
                         <div className="col s1 pr-0 circle">
                         </div>
                         <div className="col s11">
-                            <a href="#">
+                            <Link to={`/news/${item.id}/`}>
                                 <p className="m-0"><span><i
                                     className="material-icons vertical-align-bottom">access_time</i> {item.pub_date}</span></p>
-                            </a>
+                            </Link>
                             <div className="row">
                                 <div className="col s12">
                                     <div className="card card-border z-depth-2">
@@ -50,9 +50,11 @@ class NewsList extends Component {
                                             <img src={`${window.DOMAIN_NAME}${item.preview_image}`} alt=""/>
                                         </div>
                                         <div className="card-content">
-                                            <h6 className="font-weight-900 text-uppercase"><a href="#">
+                                            <h6 className="font-weight-900 text-uppercase">
+                                                <Link to={`/news/${item.id}/`}>
                                                 {renderHTML(item.title)}
-                                            </a></h6>
+                                                </Link>
+                                            </h6>
                                             <p>{renderHTML(item.short_description)}</p>
                                         </div>
                                     </div>

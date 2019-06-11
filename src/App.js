@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 
 import UserOffice from './layout/UserOffice';
 import SignIn from './layout/SignIn';
-
+import DetailNews from './components/DetailNews';
 
 window.DOMAIN_NAME = 'http://127.0.0.1:8000';
 window.VERSION_API = '/api/v1';
@@ -20,6 +20,7 @@ class App extends Component {
             return (
                 <Router>
                     <Route path="/" exact component={UserOffice}/>
+                    <Route path="/news/:id/" exact component={DetailNews}/>
                 </Router>
             );
         }
