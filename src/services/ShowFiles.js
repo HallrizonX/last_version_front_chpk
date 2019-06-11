@@ -13,7 +13,7 @@ class ShowFiles extends Component {
                 {this.props.files.map(file =>
                     <li key={file.id} className="collection-item">
                         <div>{file.title}
-                            <a href={`${window.DOMAIN_NAME}${file.file}`} download className="secondary-content"><i
+                            <a href={`${window.DOMAIN_NAME}${file.file}`} download={true} className="secondary-content"><i
                                 className="material-icons">archive</i></a></div>
                     </li>
                 )}

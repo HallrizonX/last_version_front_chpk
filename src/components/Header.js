@@ -8,14 +8,23 @@ class Header extends Component {
     };
 
     componentDidMount() {
-        axios.get(`${window.API_URL}/office/`, {headers: {Authorization: 'JWT ' + window.TEST_TOKEN}})
+        axios.get(`${window.API_URL}/office/`, {headers: {Authorization: localStorage.getItem('token')}})
             .then(res => {
                 let profile = res.data.data.result;
                 this.setState({profile});
             }).catch(err => {
             localStorage.removeItem('token');
+            location.reload();
         });
     }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        window.$('.tooltipped').tooltip();
+    }
+
+    logout = () => {
+        localStorage.clear();
+        window.location.reload();
+    };
 
     render() {
         if (this.state.profile) {
@@ -24,11 +33,12 @@ class Header extends Component {
                 <nav>
                     <div className="nav-wrapper light-blue darken-4">
                         <a className='brand-logo'>
-                            {this.state.profile.access == 'student' ? <span>Привіт студент!</span> : <span>Привіт викладач!</span>}
+                            <i style={{fontSize: '60px'}} className="material-icons">account_circle</i>
+                            {this.state.profile.surname} {this.state.profile.name} {this.state.profile.last_name}
                         </a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            <li><i className="material-icons">account_circle</i></li>
-                            <li>{this.state.profile.surname} {this.state.profile.name} {this.state.profile.last_name}</li>
+                            <li><i onClick={this.logout} style={{fontSize: '40px', cursor: 'pointer'}} data-tooltip="Вихід" data-position="left"
+                                   className="tooltipped material-icons">exit_to_app</i></li>
                         </ul>
                     </div>
                 </nav>

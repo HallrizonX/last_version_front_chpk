@@ -4,7 +4,6 @@ import './UserOffice.css';
 import Header from '../components/Header';
 import GroupList from '../components/GroupList';
 import NewsList from '../components/NewsList';
-import axios from "axios";
 
 class UserOffice extends Component {
 

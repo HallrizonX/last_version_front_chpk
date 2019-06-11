@@ -16,15 +16,15 @@ class NewsList extends Component {
 
     getAllNews = () => {
         if (!this.state.news) {
-            axios.get(`${window.API_URL}/news/`, {headers: {Authorization: 'JWT ' + window.TEST_TOKEN}})
+            axios.get(`${window.API_URL}/news/`, {headers: {Authorization: localStorage.getItem('token')}})
                 .then(res => {
                     let news = res.data.data.result;
 
                     this.setState({news});
                     console.log(news);
                 }).catch(err => {
-                console.log(err);
                 localStorage.removeItem('token');
+                location.reload();
             });
 
         }

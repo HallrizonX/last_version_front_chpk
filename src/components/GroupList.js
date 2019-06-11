@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 import ShowFiles from '../services/ShowFiles';
 import ShowTeachers from '../services/ShowTeachers';
@@ -26,17 +27,16 @@ class GroupList extends Component {
     };
     getAllSubjects = () => {
         if (!this.state.subjects) {
-            axios.get(`${window.API_URL2}/groups/`, {headers: {Authorization: 'JWT ' + window.TEST_TOKEN}})
+            axios.get(`${window.API_URL2}/groups/`, {headers: {Authorization: localStorage.getItem('token')}})
                 .then(res => {
                     res = res.data.data.result[0];
                     let subjects = res.subject_set;
                     let teachers = res.teachers;
                     let files = res.files;
-                    console.log(subjects);
                     this.setState({subjects, teachers, files})
                 }).catch(err => {
-                console.log(err);
                 localStorage.removeItem('token');
+                location.reload();
             });
         }
     };
@@ -48,7 +48,7 @@ class GroupList extends Component {
         } catch (e) {
         }
         let subject_id = e.target.attributes.getNamedItem('data-subject-id').value;
-        let marks = await axios.get(`${window.API_URL2}/journals/subjects/${subject_id}/`, {headers: {Authorization: 'JWT ' + window.TEST_TOKEN}});
+        let marks = await axios.get(`${window.API_URL2}/journals/subjects/${subject_id}/`, {headers: {Authorization: localStorage.getItem('token')}});
         marks = marks.data.data.result[0].marks;
         await this.setState({subject_id: subject_id, marks});
     };
@@ -57,7 +57,9 @@ class GroupList extends Component {
         return (
             <div className="col s3 ">
                 <MarksModal marks={this.state.marks}/>
-
+                <Link to={'/'}>
+                    <p className='center-align'><img style={{width: '200px'}} src='/logo.svg'/></p>
+                </Link>
                 <ul className="collapsible row center-align ">
 
                     {this.state.subjects ? this.state.subjects.map(item =>
